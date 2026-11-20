@@ -22,15 +22,19 @@ def draft(prefix, predictor, read=input, write=print):
                 text = text.rsplit(" ", 1)[0]
         elif entry.isdigit():
             if entry in [str(i) for i in range(1, len(hints)+1)]:
-                text += " " + hints[int(entry)-1]
+                candidate = text + " " + hints[int(entry)-1]
+                if len(candidate.encode("utf-8")) <= 250:
+                    text = candidate
+                else:
+                    write("Submit the draft or undo a word first.")
             else:
                 write("Choose a displayed suggestion.")
         elif words(entry) and not entry.startswith("/"):
             candidate = text + " " + " ".join(entry.split())
-            if len(candidate.encode("utf-8")) <= 256:
+            if len(candidate.encode("utf-8")) <= 250:
                 text = candidate
             else:
-                write("Keep the clause within 256 bytes.")
+                write("Keep the clause within 250 bytes.")
         else:
             write("Type a continuation or choose a listed command.")
 
@@ -53,6 +57,7 @@ def play(model, rounds, seed):
         print(f"Model reading: {prediction} ({score:.0%} model score)")
         points += int(prediction == label)
         print("Objective matched." if prediction == label else "Different reading. Revisit the objective above.")
+        print("Drafting cue:", OBJECTIVES[prediction])
         print("Example:", TRAIN[label][0])
     print(f"\nFinal score: {points}/{attempts} attempted rounds.")
 
