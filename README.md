@@ -1,3 +1,4 @@
+[![Built with askThili](https://msrit.ask.thili.ai/api/v1/public/projects/7vve49et44/badge.svg)](https://msrit.ask.thili.ai/b/7vve49et44)
 # Legal Sentence Game
 
 Draft a short contract clause in the terminal. Each round gives a purpose and a partial sentence. Add your own words or use numbered next-word suggestions. Submit the full clause to a trained GPT-2 classifier and compare its reading with the objective.
